@@ -30,17 +30,18 @@
           :style="itemsFrame[0].style"
         ></div>
         <div
-          class="absolute h-40 z-10 -rotate-90 cursor-grab bg-[url('arrow-down.png')] bg-contain w-[94px]"
+          class="absolute h-40 z-10 -rotate-90 cursor-grab bg-[url('arrow-down.png')] bg-contain w-[95px]"
           @mousedown="startDragging(itemsFrame[1])"
           :style="itemsFrame[1].style"
         ></div>
         <div
-          class="absolute h-40 z-10 -rotate-90 cursor-grab bg-[url('arrow-down.png')] bg-contain w-[94px]"
+          class="absolute z-10 -rotate-90 cursor-pointer bg-[url('plus-icon.webp')] bg-contain w-[83px] h-[93px]"
           @mousedown="startDragging(itemsFrame[2])"
+          @click="handleAddItem"
           :style="itemsFrame[2].style"
         ></div>
         <VueDragPlayground
-          class="frame w-full h-full bg-white/70 rounded-xl border-black border-[3px]"
+          class="frame w-full h-full bg-white/70 rounded-xl outline-black outline-[3px] outline"
           @drag-start="handleDragStart"
           @drag-end="handleDragEnd"
           v-bind="propsPlayground"
@@ -69,6 +70,19 @@ type ItemPlayground = {
   rotation?: number
 }
 const itemsPlayground: Ref<ItemPlayground[]> = ref([
+  {
+    name: 'chat-box',
+    html: `<img
+          src="chat-box.png"
+        >
+          <p class="absolute top-[17%] left-[11%] break-all w-[78%] h-[70%]">Test Test Test Test Test Test Test Testffffffffffffffffff</p>
+        </img>`,
+    x: 550,
+    y: 120,
+    rotation: -15,
+    width: 200,
+    height: 200,
+  },
   {
     name: 'alien',
     html: "<img src='alien.gif' width='100px' draggable='false'>",
@@ -129,14 +143,14 @@ const itemsFrame: Ref<ItemFrame[]> = ref([
   {
     id: 2,
     style: { top: '100%', left: 'calc(50% - 47px)', transform: 'translate(0, -50%)' },
-    width: 94,
+    width: 95,
     height: 160,
   },
   {
     id: 3,
-    style: { top: 'calc(50% - 47px)', left: '100%', transform: 'translate(-50%, 0)' },
-    width: 94,
-    height: 160,
+    style: { top: 'calc(50% - 46px)', left: '100%', transform: 'translate(-50%, 0)' },
+    width: 83,
+    height: 93,
   },
 ])
 const isDragging = ref(false) // Tracks if dragging is active
@@ -237,6 +251,8 @@ const stopDragging = () => {
   document.removeEventListener('mousemove', drag)
   document.removeEventListener('mouseup', stopDragging)
 }
+
+const handleAddItem = () => {}
 
 onMounted(() => {
   // Cleanup listeners in case of unmounting
