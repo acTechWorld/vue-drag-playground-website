@@ -22,7 +22,7 @@
         </ul>
       </div>
     </div>
-    <div class="!p-[10rem] w-full h-full relative flex justify-center">
+    <div class="p-[10rem] w-full h-full relative flex justify-center">
       <div class="w-full h-full relative max-w-[1600px]">
         <div
           class="bg-red-500 w-[50px] h-[50px] absolute z-10 cursor-grab"
@@ -37,7 +37,7 @@
         <div
           class="absolute z-10 -rotate-90 cursor-pointer bg-[url('plus-icon.webp')] bg-contain w-[83px] h-[93px]"
           @mousedown="startDragging(itemsFrame[2])"
-          @click="handleAddItem"
+          @click="toggleOverlay"
           :style="itemsFrame[2].style"
         ></div>
         <VueDragPlayground
@@ -50,6 +50,43 @@
       </div>
     </div>
   </main>
+
+  <!-- Overlay Modal -->
+  <div
+    v-if="isOverlayVisible"
+    class="fixed inset-0 bg-black/30 flex items-center justify-center z-50"
+  >
+    <div class="bg-white p-6 rounded-lg shadow-lg w-[600px]">
+      <h2 class="text-2xl font-semibold mb-4 text-center">Add your message to the Playground</h2>
+      <div class="relative">
+        <img src="../public/chat-box.png" />
+        <textarea
+          type="text"
+          v-model="message"
+          placeholder="Enter your message"
+          class="absolute top-[18%] left-[11%] break-all w-[78%] h-[60%] rounded-md p-2 mb-4 focus:outline-none bg-transparent text-[2em]"
+        ></textarea>
+      </div>
+      <div class="flex justify-between">
+        <button
+          :disabled="message.length <= 0"
+          :class="
+            message.length > 0 ? 'border-green-500 hover:border-green-600' : 'border-gray-500'
+          "
+          @click="handleAddItem"
+          class="text-gray-500 py-2 px-4 rounded-md border-2"
+        >
+          Add
+        </button>
+        <button
+          @click="toggleOverlay"
+          class="border-red-500 hover:border-red-600 text-gray-500 border-2 py-2 px-4 rounded-md"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -72,11 +109,7 @@ type ItemPlayground = {
 const itemsPlayground: Ref<ItemPlayground[]> = ref([
   {
     name: 'chat-box',
-    html: `<img
-          src="chat-box.png"
-        >
-          <p class="absolute top-[17%] left-[11%] break-all w-[78%] h-[70%]">Test Test Test Test Test Test Test Testffffffffffffffffff</p>
-        </img>`,
+    html: `<img src="chat-box.png" draggable='false'><textarea readonly  class="absolute top-[18%] left-[11%] break-all w-[78%] h-[60%] bg-transparent outline-none cursor-[inherit] resize-none">Test Test Test Test Test Test Test Testffffffffffffffffff</textarea></img>`,
     x: 550,
     y: 120,
     rotation: -15,
@@ -156,6 +189,8 @@ const itemsFrame: Ref<ItemFrame[]> = ref([
 const isDragging = ref(false) // Tracks if dragging is active
 const frameDraggingItemId: Ref<null | number> = ref(null)
 const frameDimensions = ref({ width: 0, height: 0 }) // Frame dimensions for boundary calculations
+const isOverlayVisible = ref(false)
+const message = ref('')
 
 //COMPUTED
 const propsPlayground = computed(() => ({
@@ -252,7 +287,32 @@ const stopDragging = () => {
   document.removeEventListener('mouseup', stopDragging)
 }
 
-const handleAddItem = () => {}
+const toggleOverlay = () => {
+  isOverlayVisible.value = !isOverlayVisible.value
+  if (message.value) message.value = ''
+}
+
+const handleAddItem = () => {
+  const frameRect = document.querySelector('.frame')?.getBoundingClientRect()
+  console.log(frameRect)
+  if (frameRect) {
+    itemsPlayground.value.push({
+      name: 'message-1',
+      html: `<img
+      draggable='false'
+          src="chat-box.png"
+        >
+          <textarea readonly class="absolute top-[18%] left-[11%] break-all w-[78%] h-[60%] bg-transparent outline-none cursor-[inherit] resize-none">${message.value}</textarea>
+        </img>`,
+      x: Math.random() * (frameRect.width - 300),
+      y: Math.random() * (frameRect.height - 300),
+      rotation: Math.random() * (45 - -45) + -45,
+      width: 200,
+      height: 200,
+    })
+  }
+  toggleOverlay()
+}
 
 onMounted(() => {
   // Cleanup listeners in case of unmounting
@@ -265,18 +325,12 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 @import url('https://fonts.googleapis.com/css?family=Exo:400,700');
 
-* {
-  margin: 0px;
-  padding: 0px;
+.vue-drag-playground .resize_btn_container div {
+  background-color: #00000050;
 }
-
-body {
-  font-family: 'Exo', sans-serif;
-}
-
 .context {
   width: 100%;
   position: absolute;
