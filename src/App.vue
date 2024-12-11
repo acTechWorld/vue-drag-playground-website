@@ -1,52 +1,145 @@
 <template>
   <header>
-    <div class="wrapper">
-      <nav></nav>
+    <div class="wrapper mr-20">
+      <nav class="flex float-end p-5 relative z-10">
+        <div
+          @mouseenter="displayDocSubMenu = true"
+          @mouseleave="displayDocSubMenu = false"
+          @click="displayDocSubMenu = true"
+          aria-haspopup="true"
+          :aria-expanded="displayDocSubMenu"
+          aria-label="Documentation menu"
+          class="relative"
+        >
+          <div id="nav-doc" class="cursor-pointer text-amber-700 text-xl font-semibold mb-2">
+            Documentation
+          </div>
+          <div
+            id="nav-doc-sub-container"
+            class="bg-amber-900/70 py-5 rounded-lg flex flex-col text-white absolute right-0 w-[220px] text-center"
+            :aria-hidden="!displayDocSubMenu"
+            v-if="displayDocSubMenu"
+          >
+            <p
+              class="cursor-pointer hover:bg-amber-900 py-1"
+              @click="goToGithubPage('installation')"
+              aria-label="How to install VueOnboardingTour"
+            >
+              How to install
+            </p>
+            <p
+              class="cursor-pointer hover:bg-amber-900 py-1"
+              @click="goToGithubPage('documentation')"
+              aria-label="View online documentation for VueOnboardingTour"
+            >
+              Online Documentation
+            </p>
+            <p
+              class="cursor-pointer hover:bg-amber-900 py-1"
+              @click="goToStoryBook"
+              aria-label="Explore VueOnboardingTour Storybook"
+            >
+              Storybook
+            </p>
+          </div>
+        </div>
+      </nav>
     </div>
   </header>
 
-  <main class="flex h-full">
-    <div class="absolute top-0 left-0 h-full w-full">
-      <div class="area">
-        <ul class="circles">
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
+  <main class="flex h-full flex-col">
+    <div class="flex h-[calc(100vh_-_304px)] 2xl:h-[calc(100vh_-_424px)]">
+      <div class="absolute top-0 left-0 h-[calc(100vh_-_124px)] 2xl:h-[calc(100vh_-_224px)] w-full">
+        <div class="area">
+          <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="pb-[5rem] px-[5rem] 2xl:px-[10rem] 2xl:pb-[10rem] w-full h-full relative flex justify-center"
+      >
+        <div class="w-full h-full relative max-w-[1600px]">
+          <div
+            class="bg-[url('logo.png')] bg-cover w-[470px] h-[80px] absolute z-10 cursor-grab"
+            @mousedown="startDragging(itemsFrame[0])"
+            :style="itemsFrame[0].style"
+          ></div>
+          <div
+            class="absolute h-40 z-30 -rotate-90 cursor-pointer bg-[url('arrow-down.png')] bg-contain w-[95px]"
+            @mousedown="startDragging(itemsFrame[1])"
+            :style="itemsFrame[1].style"
+            @click="handleClickArrow"
+          ></div>
+          <div
+            class="absolute -rotate-90 cursor-pointer bg-[url('plus-icon.webp')] bg-contain w-[83px] h-[93px] z-30"
+            @mousedown="startDragging(itemsFrame[2])"
+            @click="toggleOverlay"
+            :style="itemsFrame[2].style"
+          ></div>
+          <VueDragPlayground
+            class="frame w-full h-full bg-white/70 rounded-xl outline-black outline-[3px] outline"
+            @drag-start="handleDragStart"
+            @drag-end="handleDragEnd"
+            v-bind="propsPlayground"
+            v-model="itemsPlayground"
+          />
+        </div>
       </div>
     </div>
-    <div class="p-[10rem] w-full h-full relative flex justify-center">
-      <div class="w-full h-full relative max-w-[1600px]">
-        <div
-          class="bg-red-500 w-[50px] h-[50px] absolute z-10 cursor-grab"
-          @mousedown="startDragging(itemsFrame[0])"
-          :style="itemsFrame[0].style"
-        ></div>
-        <div
-          class="absolute h-40 z-10 -rotate-90 cursor-grab bg-[url('arrow-down.png')] bg-contain w-[95px]"
-          @mousedown="startDragging(itemsFrame[1])"
-          :style="itemsFrame[1].style"
-        ></div>
-        <div
-          class="absolute z-10 -rotate-90 cursor-pointer bg-[url('plus-icon.webp')] bg-contain w-[83px] h-[93px]"
-          @mousedown="startDragging(itemsFrame[2])"
-          @click="toggleOverlay"
-          :style="itemsFrame[2].style"
-        ></div>
-        <VueDragPlayground
-          class="frame w-full h-full bg-white/70 rounded-xl outline-black outline-[3px] outline"
-          @drag-start="handleDragStart"
-          @drag-end="handleDragEnd"
-          v-bind="propsPlayground"
-          v-model="itemsPlayground"
-        />
+    <div
+      class="bg-[url('bgCurved.svg')] bg-cover py-[100px] 2xl:py-[200px] -mt-[3rem] 2xl:-mt-[5rem] z-[20] min-h-[800px]"
+    >
+      <div class="w-full text-center flex gap-10 flex-col px-10 max-w-[1600px] mx-auto mb-[100px]">
+        <h1 class="header text-4xl 2xl:text-5xl">
+          Take Control of your UI with <b>VueDragPlayground</b>
+        </h1>
+        <h2 class="text-2xl 2xl:text-3xl">
+          <i
+            ><b>VueDragPlayground</b> is a free Vue.js library for creating interactive,
+            customizable elements. <br />
+            Drop your components into the playground, and the library do the rest to enable drag,
+            resize, and rotate functionality, whether for a single item or multiple at once.
+          </i>
+        </h2>
+      </div>
+      <div class="flex gap-[100px] px-10 max-w-[1600px] mx-auto lg:flex-row flex-col">
+        <div>
+          <h3 class="header text-xl 2xl:text-2xl mb-3">Simple Setup, Instant Interaction</h3>
+          <span class="text-lg 2xl:text-xl">
+            "VueDragPlayground allows you to easily create interactive elements. Simply drop your
+            components into the playground, and they’re ready to be dragged, resized, or rotated
+            instantly—no complex setup required."
+          </span>
+        </div>
+        <div>
+          <h3 class="header text-xl 2xl:text-2xl mb-3">Highly Customizable Playground</h3>
+          <span class="text-lg 2xl:text-xl">
+            The playground itself is fully customizable, enabling you to adjust its behavior and
+            appearance to suit your needs. Fine-tune settings like layout, controls, and interaction
+            modes, ensuring the environment fits perfectly with your design goals.
+          </span>
+        </div>
+        <div>
+          <h3 class="header text-xl 2xl:text-2xl mb-3">
+            Smooth, Performance-Optimized Interaction
+          </h3>
+          <span class="text-lg 2xl:text-xl">
+            Enjoy smooth, responsive interactions even with multiple elements. VueDragPlayground
+            includes performance optimizations like event throttling to ensure that dragging,
+            resizing, and rotating remain fluid and efficient, even with complex or numerous
+            components.
+          </span>
+        </div>
       </div>
     </div>
   </main>
@@ -87,6 +180,31 @@
       </div>
     </div>
   </div>
+  <footer class="bg-amber-900 -mt-10">
+    <div class="flex text-white h-[150px] gap-10 px-10 max-w-[1600px] mx-auto items-center pt-10">
+      <p
+        class="cursor-pointer hover:bg-amber-900 py-1"
+        @click="goToGithubPage('installation')"
+        aria-label="How to install VueOnboardingTour"
+      >
+        How to install
+      </p>
+      <p
+        class="cursor-pointer hover:bg-amber-900 py-1"
+        @click="goToGithubPage('documentation')"
+        aria-label="View online documentation for VueOnboardingTour"
+      >
+        Online Documentation
+      </p>
+      <p
+        class="cursor-pointer hover:bg-amber-900 py-1"
+        @click="goToStoryBook"
+        aria-label="Explore VueOnboardingTour Storybook"
+      >
+        Storybook
+      </p>
+    </div>
+  </footer>
 </template>
 
 <script setup lang="ts">
@@ -106,6 +224,8 @@ type ItemPlayground = {
   height?: number
   rotation?: number
 }
+const displayDocSubMenu = ref(false)
+
 const itemsPlayground: Ref<ItemPlayground[]> = ref([
   {
     name: 'chat-box',
@@ -169,9 +289,9 @@ const itemsPlayground: Ref<ItemPlayground[]> = ref([
 const itemsFrame: Ref<ItemFrame[]> = ref([
   {
     id: 1,
-    style: { top: '0px', left: 'calc(50% - 25px)', transform: 'translate(0, -50%)' },
-    width: 50,
-    height: 50,
+    style: { top: '0px', left: 'calc(50% - 235px)', transform: 'translate(0, -50%)' },
+    width: 479,
+    height: 80,
   },
   {
     id: 2,
@@ -202,6 +322,15 @@ const propsPlayground = computed(() => ({
 }))
 
 //METHODS
+const goToGithubPage = (hash: string) => {
+  window.open(`https://github.com/acTechWorld/vue-drag-playground?tab=readme-ov-file#${hash}`)
+}
+const goToStoryBook = () => {
+  window.open(
+    `https://vueonboardingtour.storybook.actechworld.com/?path=/story/lib-components-vueonboardingtour--default`,
+  )
+}
+
 const handleDragStart = (item) => {
   itemsPlayground.value = itemsPlayground.value.map((it) =>
     it.name === item.name && it.id === item.id
@@ -314,6 +443,9 @@ const handleAddItem = () => {
   toggleOverlay()
 }
 
+const handleClickArrow = () => {
+  window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })
+}
 onMounted(() => {
   // Cleanup listeners in case of unmounting
   document.addEventListener('mouseup', stopDragging)
@@ -327,7 +459,14 @@ onBeforeUnmount(() => {
 
 <style lang="css">
 @import url('https://fonts.googleapis.com/css?family=Exo:400,700');
-
+@import url('https://db.onlinewebfonts.com/c/589aea3c60e04505f023550504709883?family=Hobeaux');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+main {
+  font-family: 'Poppins', sans-serif;
+}
+.header {
+  font-family: 'Hobeaux', sans-serif;
+}
 .vue-drag-playground .resize_btn_container div {
   background-color: #00000050;
 }
@@ -347,7 +486,7 @@ onBeforeUnmount(() => {
   background: #fff5e6;
   background: -webkit-linear-gradient(to left, #fff5e6, #fff5e6);
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 .circles {
