@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="wrapper mr-20">
+    <div class="wrapper lg:mr-20">
       <nav class="flex float-end p-5 relative z-10">
         <div
           @mouseenter="displayDocSubMenu = true"
@@ -11,31 +11,31 @@
           aria-label="Documentation menu"
           class="relative"
         >
-          <div id="nav-doc" class="cursor-pointer text-amber-700 text-xl font-semibold mb-2">
+          <div id="nav-doc" class="cursor-pointer text-red-700 text-xl font-semibold mb-2">
             Documentation
           </div>
           <div
             id="nav-doc-sub-container"
-            class="bg-amber-900/70 py-5 rounded-lg flex flex-col text-white absolute right-0 w-[220px] text-center"
+            class="bg-red-900/70 py-5 rounded-lg flex flex-col text-white absolute right-0 w-[220px] text-center"
             :aria-hidden="!displayDocSubMenu"
             v-if="displayDocSubMenu"
           >
             <p
-              class="cursor-pointer hover:bg-amber-900 py-1"
+              class="cursor-pointer hover:bg-red-900 py-1"
               @click="goToGithubPage('installation')"
               aria-label="How to install VueOnboardingTour"
             >
               How to install
             </p>
             <p
-              class="cursor-pointer hover:bg-amber-900 py-1"
+              class="cursor-pointer hover:bg-red-900 py-1"
               @click="goToGithubPage('documentation')"
               aria-label="View online documentation for VueOnboardingTour"
             >
               Online Documentation
             </p>
             <p
-              class="cursor-pointer hover:bg-amber-900 py-1"
+              class="cursor-pointer hover:bg-red-900 py-1"
               @click="goToStoryBook"
               aria-label="Explore VueOnboardingTour Storybook"
             >
@@ -48,8 +48,12 @@
   </header>
 
   <main class="flex h-full flex-col">
-    <div class="flex h-[calc(100vh_-_304px)] 2xl:h-[calc(100vh_-_424px)]">
-      <div class="absolute top-0 left-0 h-[calc(100vh_-_124px)] 2xl:h-[calc(100vh_-_224px)] w-full">
+    <div
+      class="flex h-[calc(100vh_-_100px)] lg:h-[calc(100vh_-_304px)] 2xl:h-[calc(100vh_-_424px)]"
+    >
+      <div
+        class="absolute top-0 left-0 h-[calc(100vh)] lg:h-[calc(100vh_-_204px)] 2xl:h-[calc(100vh_-_254px)] w-full"
+      >
         <div class="area">
           <ul class="circles">
             <li></li>
@@ -66,22 +70,22 @@
         </div>
       </div>
       <div
-        class="pb-[5rem] px-[5rem] 2xl:px-[10rem] 2xl:pb-[10rem] w-full h-full relative flex justify-center"
+        class="pb-[5rem] px-8 lg:px-[5rem] 2xl:px-[10rem] 2xl:pb-[10rem] w-full h-full relative flex justify-center"
       >
         <div class="w-full h-full relative max-w-[1600px]">
           <div
-            class="bg-[url('logo.png')] bg-cover w-[470px] h-[80px] absolute z-10 cursor-grab"
+            class="itemFrame1 bg-[url('logo.png')] bg-cover w-[220px] h-[35px] lg:w-[390px] lg:h-[65px] 2xl:w-[470px] 2xl:h-[80px] absolute z-10 cursor-grab"
             @mousedown="startDragging(itemsFrame[0])"
             :style="itemsFrame[0].style"
           ></div>
           <div
-            class="absolute h-40 z-30 -rotate-90 cursor-pointer bg-[url('arrow-down.png')] bg-contain w-[95px]"
+            class="itemFrame2 absolute z-30 -rotate-90 cursor-pointer bg-[url('arrow-down.png')] bg-contain h-[100px] w-[60px] lg:h-[120px] lg:w-[71px] 2xl:w-[95px] 2xl:h-40"
             @mousedown="startDragging(itemsFrame[1])"
             :style="itemsFrame[1].style"
             @click="handleClickArrow"
           ></div>
           <div
-            class="absolute -rotate-90 cursor-pointer bg-[url('plus-icon.webp')] bg-contain w-[83px] h-[93px] z-30"
+            class="itemFrame3 absolute -rotate-90 cursor-pointer bg-[url('plus-icon.webp')] bg-contain w-[58px] h-[65px] lg:w-[70px] lg:h-[79px] 2xl:w-[83px] 2xl:h-[93px] z-30"
             @mousedown="startDragging(itemsFrame[2])"
             @click="toggleOverlay"
             :style="itemsFrame[2].style"
@@ -99,11 +103,13 @@
     <div
       class="bg-[url('bgCurved.svg')] bg-cover py-[100px] 2xl:py-[200px] -mt-[3rem] 2xl:-mt-[5rem] z-[20] min-h-[800px]"
     >
-      <div class="w-full text-center flex gap-10 flex-col px-10 max-w-[1600px] mx-auto mb-[100px]">
-        <h1 class="header text-4xl 2xl:text-5xl">
-          Take Control of your UI with <b>VueDragPlayground</b>
+      <div
+        class="w-full text-center flex gap-10 flex-col px-3 sm:px-10 max-w-[1600px] mx-auto mb-12 lg:mb-[100px]"
+      >
+        <h1 class="header text-3xl lg:text-4xl 2xl:text-5xl text-red-900">
+          Take Control of your UI with <b class="text-red-900">VueDragPlayground</b>!
         </h1>
-        <h2 class="text-2xl 2xl:text-3xl">
+        <h2 class="text-xl lg:text-2xl 2xl:text-3xl">
           <i
             ><b>VueDragPlayground</b> is a free Vue.js library for creating interactive,
             customizable elements. <br />
@@ -112,28 +118,34 @@
           </i>
         </h2>
       </div>
-      <div class="flex gap-[100px] px-10 max-w-[1600px] mx-auto lg:flex-row flex-col">
+      <div
+        class="flex gap-12 lg:gap-[100px] px-3 sm:px-10 max-w-[1600px] mx-auto lg:flex-row flex-col"
+      >
         <div>
-          <h3 class="header text-xl 2xl:text-2xl mb-3">Simple Setup, Instant Interaction</h3>
-          <span class="text-lg 2xl:text-xl">
+          <h3 class="header text-lg lg:text-xl 2xl:text-2xl mb-3">
+            Simple Setup, Instant Interaction
+          </h3>
+          <span class="lg:text-lg 2xl:text-xl">
             "VueDragPlayground allows you to easily create interactive elements. Simply drop your
             components into the playground, and they’re ready to be dragged, resized, or rotated
             instantly—no complex setup required."
           </span>
         </div>
         <div>
-          <h3 class="header text-xl 2xl:text-2xl mb-3">Highly Customizable Playground</h3>
-          <span class="text-lg 2xl:text-xl">
+          <h3 class="header text-lg lg:text-xl 2xl:text-2xl mb-3">
+            Highly Customizable Playground
+          </h3>
+          <span class="lg:text-lg 2xl:text-xl">
             The playground itself is fully customizable, enabling you to adjust its behavior and
             appearance to suit your needs. Fine-tune settings like layout, controls, and interaction
             modes, ensuring the environment fits perfectly with your design goals.
           </span>
         </div>
         <div>
-          <h3 class="header text-xl 2xl:text-2xl mb-3">
+          <h3 class="header text-lg lg:text-xl 2xl:text-2xl mb-3">
             Smooth, Performance-Optimized Interaction
           </h3>
-          <span class="text-lg 2xl:text-xl">
+          <span class="lg:text-lg 2xl:text-xl">
             Enjoy smooth, responsive interactions even with multiple elements. VueDragPlayground
             includes performance optimizations like event throttling to ensure that dragging,
             resizing, and rotating remain fluid and efficient, even with complex or numerous
@@ -158,7 +170,9 @@
           v-model="message"
           placeholder="Enter your message"
           class="absolute top-[18%] left-[11%] break-all w-[78%] h-[60%] rounded-md p-2 mb-4 focus:outline-none bg-transparent text-[2em]"
-        ></textarea>
+        >
+        ></textarea
+        >
       </div>
       <div class="flex justify-between">
         <button
@@ -180,38 +194,52 @@
       </div>
     </div>
   </div>
-  <footer class="bg-amber-900 -mt-10">
-    <div class="flex text-white h-[150px] gap-10 px-10 max-w-[1600px] mx-auto items-center pt-10">
-      <p
-        class="cursor-pointer hover:bg-amber-900 py-1"
-        @click="goToGithubPage('installation')"
-        aria-label="How to install VueOnboardingTour"
-      >
-        How to install
-      </p>
-      <p
-        class="cursor-pointer hover:bg-amber-900 py-1"
-        @click="goToGithubPage('documentation')"
-        aria-label="View online documentation for VueOnboardingTour"
-      >
-        Online Documentation
-      </p>
-      <p
-        class="cursor-pointer hover:bg-amber-900 py-1"
-        @click="goToStoryBook"
-        aria-label="Explore VueOnboardingTour Storybook"
-      >
-        Storybook
-      </p>
+  <footer class="bg-amber-900 -mt-12 lg:-mt-10">
+    <div
+      class="flex gap-5 pb-10 lg:pb-0 flex-col lg:flex-row lg:justify-between text-white lg:h-[150px] px-10 max-w-[1600px] mx-auto items-center pt-20 lg:pt-10"
+    >
+      <div class="flex gap-5 sm:gap-10 sm:flex-row flex-col w-full sm:!w-auto items-center">
+        <p
+          class="cursor-pointer"
+          @click="goToGithubPage('installation')"
+          aria-label="How to install VueOnboardingTour"
+        >
+          How to install
+        </p>
+        <p
+          class="cursor-pointer"
+          @click="goToGithubPage('documentation')"
+          aria-label="View online documentation for VueOnboardingTour"
+        >
+          Online Documentation
+        </p>
+        <p
+          class="cursor-pointer"
+          @click="goToStoryBook"
+          aria-label="Explore VueOnboardingTour Storybook"
+        >
+          Storybook
+        </p>
+      </div>
+      <div class="flex gap-5 sm:gap-10 sm:flex-row flex-col w-full sm:!w-auto items-center">
+        <a class="flex gap-10" target="_blank" href="https://www.linkedin.com/in/antoine-canard/"
+          >My Linkedin</a
+        >
+        <a class="flex gap-10" target="_blank" href="https://github.com/acTechWorld">My Github</a>
+      </div>
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount, type Ref } from 'vue'
+import { useWindowSize } from '@vueuse/core'
+import { ref, computed, onMounted, onBeforeUnmount, type Ref, type ComputedRef } from 'vue'
 type ItemFrame = {
   id: number
   style: { top: string; left: string; transform: string }
+}
+type ItemSize = {
+  id: number
   width: number
   height: number
 }
@@ -225,85 +253,94 @@ type ItemPlayground = {
   rotation?: number
 }
 const displayDocSubMenu = ref(false)
-
+const { width } = useWindowSize()
+const isSmallScreen = computed(() => width.value < 1536)
+const isMobileScreen = computed(() => width.value < 1024)
 const itemsPlayground: Ref<ItemPlayground[]> = ref([
   {
     name: 'chat-box',
-    html: `<img src="chat-box.png" draggable='false'><textarea readonly  class="absolute top-[18%] left-[11%] break-all w-[78%] h-[60%] bg-transparent outline-none cursor-[inherit] resize-none">Test Test Test Test Test Test Test Testffffffffffffffffff</textarea></img>`,
+    html: `<img src="chat-box.png" draggable='false'><p class="absolute overflow-scroll select-none top-[18%] left-[11%] break-all w-[78%] h-[60%] bg-transparent outline-none cursor-[inherit] resize-none">Take Control of your UI with VueDragPlayground!</p></img>`,
     x: 550,
     y: 120,
     rotation: -15,
-    width: 200,
-    height: 200,
+    width: isMobileScreen.value ? 100 : isSmallScreen.value ? 150 : 200,
+    height: isMobileScreen.value ? 100 : isSmallScreen.value ? 150 : 200,
   },
   {
     name: 'alien',
     html: "<img src='alien.gif' width='100px' draggable='false'>",
     x: 1050,
     y: 120,
-    width: 100,
-    height: 100,
+    width: isMobileScreen.value ? 50 : isSmallScreen.value ? 75 : 100,
+    height: isMobileScreen.value ? 50 : isSmallScreen.value ? 75 : 100,
   },
   {
     name: 'rocket',
     html: "<img src='rocket.gif' draggable='false'>",
     x: 500,
     y: 500,
-    width: 100,
-    height: 100,
+    width: isMobileScreen.value ? 50 : isSmallScreen.value ? 75 : 100,
+    height: isMobileScreen.value ? 50 : isSmallScreen.value ? 75 : 100,
   },
   {
     name: 'moon',
     html: "<img src='moon.png' width='200px' height:'200px' draggable='false'>",
     x: 1000,
     y: 200,
-    width: 200,
-    height: 200,
+    width: isMobileScreen.value ? 100 : isSmallScreen.value ? 150 : 200,
+    height: isMobileScreen.value ? 100 : isSmallScreen.value ? 150 : 200,
   },
   {
     name: 'saturn',
     html: "<img src='saturn.png' width='300px' height='300px' draggable='false'>",
     x: 100,
     y: 500,
-    width: 300,
-    height: 300,
+    width: isMobileScreen.value ? 150 : isSmallScreen.value ? 220 : 300,
+    height: isMobileScreen.value ? 150 : isSmallScreen.value ? 220 : 300,
   },
   {
     name: 'star',
     html: "<img src='star.gif' width='150px' height='150px' draggable='false'>",
     x: 50,
     y: 900,
-    width: 150,
-    height: 150,
+    width: isMobileScreen.value ? 75 : isSmallScreen.value ? 120 : 150,
+    height: isMobileScreen.value ? 75 : isSmallScreen.value ? 120 : 150,
   },
   {
     name: 'astronaut',
     html: "<img src='astronaut.gif' width='200px' draggable='false'>",
     x: 900,
     y: 700,
-    width: 200,
-    height: 200,
+    width: isMobileScreen.value ? 100 : isSmallScreen.value ? 150 : 200,
+    height: isMobileScreen.value ? 100 : isSmallScreen.value ? 150 : 200,
     rotation: 50,
   },
 ])
+
 const itemsFrame: Ref<ItemFrame[]> = ref([
   {
     id: 1,
-    style: { top: '0px', left: 'calc(50% - 235px)', transform: 'translate(0, -50%)' },
-    width: 479,
-    height: 80,
+    style: {
+      top: '0px',
+      left: `calc(50% - ${isMobileScreen.value ? 110 : isSmallScreen.value ? 195 : 235}px)`,
+      transform: 'translate(0, -50%)',
+    },
   },
   {
     id: 2,
-    style: { top: '100%', left: 'calc(50% - 47px)', transform: 'translate(0, -50%)' },
-    width: 95,
-    height: 160,
+    style: {
+      top: '100%',
+      left: `calc(50% - ${isMobileScreen.value ? 30 : isSmallScreen.value ? 35 : 47}px)`,
+      transform: 'translate(0, -50%)',
+    },
   },
   {
     id: 3,
-    style: { top: 'calc(50% - 46px)', left: '100%', transform: 'translate(-50%, 0)' },
-    width: 83,
-    height: 93,
+    style: {
+      top: `calc(50% - ${isMobileScreen.value ? 32 : isSmallScreen.value ? 39 : 46}px)`,
+      left: '100%',
+      transform: 'translate(-50%, 0)',
+    },
   },
 ])
 const isDragging = ref(false) // Tracks if dragging is active
@@ -321,6 +358,26 @@ const propsPlayground = computed(() => ({
   isDelete: true,
 }))
 
+const isSmallScreenComputed = computed(() => width.value < 1536)
+const isMobileScreenComputed = computed(() => width.value < 1024)
+
+const itemsFrameSize: ComputedRef<ItemSize[]> = computed(() => [
+  {
+    id: 1,
+    width: isMobileScreenComputed.value ? 220 : isSmallScreenComputed.value ? 390 : 470,
+    height: isMobileScreenComputed.value ? 35 : isSmallScreenComputed.value ? 65 : 80,
+  },
+  {
+    id: 2,
+    width: isMobileScreenComputed.value ? 60 : isSmallScreenComputed.value ? 71 : 95,
+    height: isMobileScreenComputed.value ? 100 : isSmallScreenComputed.value ? 120 : 160,
+  },
+  {
+    id: 3,
+    width: isMobileScreenComputed.value ? 58 : isSmallScreenComputed.value ? 70 : 83,
+    height: isMobileScreenComputed.value ? 65 : isSmallScreenComputed.value ? 79 : 93,
+  },
+])
 //METHODS
 const goToGithubPage = (hash: string) => {
   window.open(`https://github.com/acTechWorld/vue-drag-playground?tab=readme-ov-file#${hash}`)
@@ -370,12 +427,24 @@ const startDragging = (item: ItemFrame) => {
 }
 
 const drag = (event: MouseEvent) => {
-  const frame = document.querySelector('.frame')?.getBoundingClientRect()
+  const frameRect = document.querySelector('.frame')?.getBoundingClientRect()
   const item = itemsFrame.value.find((item) => item.id === frameDraggingItemId.value)
-  if (!isDragging.value || !frame || !item) return
+  const itemSize = itemsFrameSize.value.find((item) => item.id === frameDraggingItemId.value)
+  if (!isDragging.value || !frameRect || !item || !itemSize) return
 
-  const mouseX = event.clientX - frame.left // Mouse X relative to frame
-  const mouseY = event.clientY - frame.top // Mouse Y relative to frame
+  mooveItem(item, event.clientX, event.clientY, frameRect, itemSize)
+}
+
+const mooveItem = (
+  item: ItemFrame,
+  clientX: number,
+  clientY: number,
+  frameRect: DOMRect,
+  itemSize: ItemSize,
+) => {
+  // Determine the closest side
+  const mouseX = clientX - frameRect.left // Mouse X relative to frame
+  const mouseY = clientY - frameRect.top // Mouse Y relative to frame
   const { width, height } = frameDimensions.value
 
   // Determine the closest side
@@ -391,18 +460,18 @@ const drag = (event: MouseEvent) => {
   // Update the logo position such that its center aligns with the border
   if (closestSide === 'top') {
     item.style.top = `0px`
-    item.style.left = `${Math.max(-item.width / 2, Math.min(mouseX - item.width / 2, width - item.width / 2))}px`
+    item.style.left = `${Math.max(-itemSize.width / 2, Math.min(mouseX - itemSize.width / 2, width - itemSize.width / 2))}px`
     item.style.transform = 'translate(0, -50%)'
   } else if (closestSide === 'right') {
-    item.style.top = `${Math.max(-item.height / 2, Math.min(mouseY - item.height / 2, height - item.height / 2))}px`
-    item.style.left = `${width - item.width}px`
+    item.style.top = `${Math.max(-itemSize.height / 2, Math.min(mouseY - itemSize.height / 2, height - itemSize.height / 2))}px`
+    item.style.left = `${width - itemSize.width}px`
     item.style.transform = 'translate(50%, 0)'
   } else if (closestSide === 'bottom') {
-    item.style.top = `${height - item.height}px`
-    item.style.left = `${Math.max(-item.width / 2, Math.min(mouseX - item.width / 2, width - item.width / 2))}px`
+    item.style.top = `${height - itemSize.height}px`
+    item.style.left = `${Math.max(-itemSize.width / 2, Math.min(mouseX - itemSize.width / 2, width - itemSize.width / 2))}px`
     item.style.transform = 'translate(0, 50%)'
   } else if (closestSide === 'left') {
-    item.style.top = `${Math.max(-item.height / 2, Math.min(mouseY - item.height / 2, height - item.height / 2))}px`
+    item.style.top = `${Math.max(-itemSize.height / 2, Math.min(mouseY - itemSize.height / 2, height - itemSize.height / 2))}px`
     item.style.left = `0px`
     item.style.transform = 'translate(-50%, 0)'
   }
@@ -423,7 +492,6 @@ const toggleOverlay = () => {
 
 const handleAddItem = () => {
   const frameRect = document.querySelector('.frame')?.getBoundingClientRect()
-  console.log(frameRect)
   if (frameRect) {
     itemsPlayground.value.push({
       name: 'message-1',
@@ -431,7 +499,7 @@ const handleAddItem = () => {
       draggable='false'
           src="chat-box.png"
         >
-          <textarea readonly class="absolute top-[18%] left-[11%] break-all w-[78%] h-[60%] bg-transparent outline-none cursor-[inherit] resize-none">${message.value}</textarea>
+          <p class="absolute overflow-scroll select-none top-[18%] left-[11%] break-all w-[78%] h-[60%] bg-transparent outline-none cursor-[inherit] resize-none">${message.value}</textarea>
         </img>`,
       x: Math.random() * (frameRect.width - 300),
       y: Math.random() * (frameRect.height - 300),
@@ -446,14 +514,36 @@ const handleAddItem = () => {
 const handleClickArrow = () => {
   window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })
 }
+
+const initFrameItems = () => {
+  const frameRect = document.querySelector('.frame')?.getBoundingClientRect()
+
+  if (frameRect) {
+    frameDimensions.value = { width: frameRect.width, height: frameRect.height }
+    itemsFrame.value.forEach((item) => {
+      const itemSize = itemsFrameSize.value.find((it) => it.id === item.id)
+      const itemRect = document.querySelector(`.itemFrame${item.id}`)?.getBoundingClientRect()
+      if (itemSize && itemRect) {
+        mooveItem(
+          item,
+          itemRect.x + itemSize.width / 2,
+          itemRect.y + itemSize.height / 2,
+          frameRect,
+          itemSize,
+        )
+      }
+    })
+  }
+}
 onMounted(() => {
   // Cleanup listeners in case of unmounting
-  document.addEventListener('mouseup', stopDragging)
+  window.addEventListener('resize', initFrameItems)
 })
 
 onBeforeUnmount(() => {
   document.removeEventListener('mousemove', drag)
   document.removeEventListener('mouseup', stopDragging)
+  window.removeEventListener('resize', initFrameItems)
 })
 </script>
 
@@ -591,7 +681,7 @@ main {
   width: 150px;
   height: 150px;
   animation-delay: 0s;
-  animation-duration: 11s;
+  animation-duration: 10s;
 }
 
 @keyframes animate {
