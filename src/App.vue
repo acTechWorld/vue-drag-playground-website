@@ -5,7 +5,7 @@
         <div
           @mouseenter="displayDocSubMenu = true"
           @mouseleave="displayDocSubMenu = false"
-          @click="displayDocSubMenu = true"
+          @click="displayDocSubMenu = !displayDocSubMenu"
           aria-haspopup="true"
           :aria-expanded="displayDocSubMenu"
           aria-label="Documentation menu"
@@ -41,6 +41,12 @@
             >
               Storybook
             </p>
+            <a
+              class="cursor-pointer hover:bg-red-900 py-1"
+              target="_blank"
+              href="https://www.linkedin.com/in/antoine-canard/"
+              >My Linkedin</a
+            >
           </div>
         </div>
       </nav>
@@ -76,21 +82,27 @@
           <div
             class="itemFrame1 bg-[url('logo.png')] bg-cover w-[220px] h-[35px] lg:w-[390px] lg:h-[65px] 2xl:w-[470px] 2xl:h-[80px] absolute z-10 cursor-grab"
             @mousedown="startDragging(itemsFrame[0])"
+            @touchstart="startDragging(itemsFrame[0])"
             :style="itemsFrame[0].style"
           ></div>
           <div
             class="itemFrame2 absolute z-30 -rotate-90 cursor-pointer bg-[url('arrow-down.png')] bg-contain h-[100px] w-[60px] lg:h-[120px] lg:w-[71px] 2xl:w-[95px] 2xl:h-40"
             @mousedown="startDragging(itemsFrame[1])"
+            @touchstart="startDragging(itemsFrame[1])"
             :style="itemsFrame[1].style"
             @click="handleClickArrow"
           ></div>
           <div
             class="itemFrame3 absolute -rotate-90 cursor-pointer bg-[url('plus-icon.webp')] bg-contain w-[58px] h-[65px] lg:w-[70px] lg:h-[79px] 2xl:w-[83px] 2xl:h-[93px] z-30"
             @mousedown="startDragging(itemsFrame[2])"
+            @touchstart="startDragging(itemsFrame[2])"
             @click="toggleOverlay"
             :style="itemsFrame[2].style"
           ></div>
           <VueDragPlayground
+            @touchstart.prevent
+            @touchmove.prevent
+            @touchend.prevent
             class="frame w-full h-full bg-white/70 rounded-xl outline-black outline-[3px] outline"
             @drag-start="handleDragStart"
             @drag-end="handleDragEnd"
@@ -385,7 +397,7 @@ const goToGithubPage = (hash: string) => {
 }
 const goToStoryBook = () => {
   window.open(
-    `https://vueonboardingtour.storybook.actechworld.com/?path=/story/lib-components-vueonboardingtour--default`,
+    `https://vuedragplayground.storybook.actechworld.com/?path=/story/lib-components-vuedragplayground--default`,
   )
 }
 
