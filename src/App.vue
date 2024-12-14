@@ -234,6 +234,7 @@
 <script setup lang="ts">
 import { useWindowSize } from '@vueuse/core'
 import { ref, computed, onMounted, onBeforeUnmount, type Ref, type ComputedRef } from 'vue'
+import { VueDragPlayground } from 'vue-drag-playground'
 type ItemFrame = {
   id: number
   style: { top: string; left: string; transform: string }
