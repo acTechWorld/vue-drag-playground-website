@@ -16,26 +16,26 @@
           </div>
           <div
             id="nav-doc-sub-container"
-            class="bg-red-900/70 py-5 rounded-lg flex flex-col text-white absolute right-0 w-[220px] text-center"
+            class="bg-red-900 py-5 rounded-lg flex flex-col text-white absolute right-0 w-[220px] text-center"
             :aria-hidden="!displayDocSubMenu"
             v-if="displayDocSubMenu"
           >
             <p
-              class="cursor-pointer hover:bg-red-900 py-1"
+              class="cursor-pointer hover:bg-red-700 py-1"
               @click="goToGithubPage('installation')"
               aria-label="How to install VueOnboardingTour"
             >
               How to install
             </p>
             <p
-              class="cursor-pointer hover:bg-red-900 py-1"
+              class="cursor-pointer hover:bg-red-700 py-1"
               @click="goToGithubPage('documentation')"
               aria-label="View online documentation for VueOnboardingTour"
             >
               Online Documentation
             </p>
             <p
-              class="cursor-pointer hover:bg-red-900 py-1"
+              class="cursor-pointer hover:bg-red-700 py-1"
               @click="goToStoryBook"
               aria-label="Explore VueOnboardingTour Storybook"
             >
@@ -80,22 +80,19 @@
       >
         <div class="w-full h-full relative max-w-[1600px]">
           <div
-            class="itemFrame1 bg-[url('logo.png')] bg-cover w-[220px] h-[35px] lg:w-[390px] lg:h-[65px] 2xl:w-[470px] 2xl:h-[80px] absolute z-10 cursor-grab"
+            class="itemFrame1 bg-[url('/logo.png')] bg-cover w-[220px] h-[35px] lg:w-[390px] lg:h-[65px] 2xl:w-[470px] 2xl:h-[80px] absolute z-10 cursor-grab"
             @mousedown="startDragging(itemsFrame[0])"
-            @touchstart="startDragging(itemsFrame[0])"
             :style="itemsFrame[0].style"
           ></div>
           <div
-            class="itemFrame2 absolute z-30 -rotate-90 cursor-pointer bg-[url('arrow-down.png')] bg-contain h-[100px] w-[60px] lg:h-[120px] lg:w-[71px] 2xl:w-[95px] 2xl:h-40"
+            class="itemFrame2 absolute z-30 -rotate-90 cursor-pointer bg-[url('/arrow-down.png')] bg-contain h-[100px] w-[60px] lg:h-[120px] lg:w-[71px] 2xl:w-[95px] 2xl:h-40"
             @mousedown="startDragging(itemsFrame[1])"
-            @touchstart="startDragging(itemsFrame[1])"
             :style="itemsFrame[1].style"
             @click="handleClickArrow"
           ></div>
           <div
-            class="itemFrame3 absolute -rotate-90 cursor-pointer bg-[url('plus-icon.webp')] bg-contain w-[58px] h-[65px] lg:w-[70px] lg:h-[79px] 2xl:w-[83px] 2xl:h-[93px] z-30"
+            class="itemFrame3 absolute -rotate-90 cursor-pointer bg-[url('/plus-icon.webp')] bg-contain w-[58px] h-[65px] lg:w-[70px] lg:h-[79px] 2xl:w-[83px] 2xl:h-[93px] z-30"
             @mousedown="startDragging(itemsFrame[2])"
-            @touchstart="startDragging(itemsFrame[2])"
             @click="toggleOverlay"
             :style="itemsFrame[2].style"
           ></div>
@@ -113,7 +110,7 @@
       </div>
     </div>
     <div
-      class="bg-[url('bgCurved.svg')] bg-cover py-[100px] 2xl:py-[200px] -mt-[3rem] 2xl:-mt-[5rem] z-[20] min-h-[800px]"
+      class="bg-[url('/bgCurved.svg')] bg-cover py-[100px] 2xl:py-[200px] -mt-[3rem] 2xl:-mt-[5rem] z-[20] min-h-[800px]"
     >
       <div
         class="w-full text-center flex gap-10 flex-col px-3 sm:px-10 max-w-[1600px] mx-auto mb-12 lg:mb-[100px]"
@@ -246,7 +243,7 @@
 <script setup lang="ts">
 import { useWindowSize } from '@vueuse/core'
 import { ref, computed, onMounted, onBeforeUnmount, type Ref, type ComputedRef } from 'vue'
-import { VueDragPlayground } from 'vue-drag-playground'
+import { VueDragPlayground, type DraggableItem } from 'vue-drag-playground'
 type ItemFrame = {
   id: number
   style: { top: string; left: string; transform: string }
@@ -257,6 +254,7 @@ type ItemSize = {
   height: number
 }
 type ItemPlayground = {
+  id?: number
   name?: string
   html: string
   x: number
@@ -401,24 +399,24 @@ const goToStoryBook = () => {
   )
 }
 
-const handleDragStart = (item) => {
+const handleDragStart = (item: DraggableItem) => {
   itemsPlayground.value = itemsPlayground.value.map((it) =>
-    it.name === item.name && it.id === item.id
+    it.name === item.name && it.id && it.id === item.id
       ? {
           ...item,
-          html: ['astronaut', 'alien'].includes(item.name)
+          html: ['astronaut', 'alien'].includes(item.name ?? '')
             ? item.html.replace(/(<img[^>]*src=')[^']*(')/i, `$1${item.name}_dragging.gif$2`)
             : item.html,
         }
       : it,
   )
 }
-const handleDragEnd = (item) => {
+const handleDragEnd = (item: DraggableItem) => {
   itemsPlayground.value = itemsPlayground.value.map((it) =>
     it.name === item.name && it.id === item.id
       ? {
           ...item,
-          html: ['astronaut', 'alien'].includes(item.name)
+          html: ['astronaut', 'alien'].includes(item.name ?? '')
             ? item.html.replace(/(<img[^>]*src=')[^']*(')/i, `$1${item.name}.gif$2`)
             : item.html,
         }
@@ -467,8 +465,9 @@ const mooveItem = (
     bottom: height - mouseY,
     left: mouseX,
   }
-
-  const closestSide = Object.keys(distances).reduce((a, b) => (distances[a] < distances[b] ? a : b))
+  const closestSide = (Object.keys(distances) as Array<keyof typeof distances>).reduce((a, b) =>
+    distances[a] < distances[b] ? a : b,
+  )
 
   // Update the logo position such that its center aligns with the border
   if (closestSide === 'top') {
@@ -551,12 +550,14 @@ const initFrameItems = () => {
 onMounted(() => {
   // Cleanup listeners in case of unmounting
   window.addEventListener('resize', initFrameItems)
+  document.addEventListener('contextmenu', () => false)
 })
 
 onBeforeUnmount(() => {
   document.removeEventListener('mousemove', drag)
   document.removeEventListener('mouseup', stopDragging)
   window.removeEventListener('resize', initFrameItems)
+  document.removeEventListener('contextmenu', () => false)
 })
 </script>
 
