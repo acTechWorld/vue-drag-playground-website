@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="wrapper lg:mr-20">
-      <nav class="flex float-end p-5 relative z-10">
+      <nav class="flex float-end p-5 relative z-50">
         <div
           @mouseenter="displayDocSubMenu = true"
           @mouseleave="displayDocSubMenu = false"
@@ -42,7 +42,7 @@
               Storybook
             </p>
             <a
-              class="cursor-pointer hover:bg-red-900 py-1"
+              class="cursor-pointer hover:bg-red-700 py-1"
               target="_blank"
               href="https://www.linkedin.com/in/antoine-canard/"
               >My Linkedin</a
@@ -279,7 +279,7 @@ const itemsPlayground: Ref<ItemPlayground[]> = ref([
   },
   {
     name: 'alien',
-    html: "<img src='alien.gif' width='100px' draggable='false'>",
+    html: "<img src='alien.gif' width='100px' draggable='false'><p class='absolute top-0 left-0 w-full select-none h-full'></p></img>",
     x: 1050,
     y: 120,
     width: isMobileScreen.value ? 50 : isSmallScreen.value ? 75 : 100,
@@ -287,7 +287,7 @@ const itemsPlayground: Ref<ItemPlayground[]> = ref([
   },
   {
     name: 'rocket',
-    html: "<img src='rocket.gif' draggable='false'>",
+    html: "<img src='rocket.gif' draggable='false'><p class='absolute top-0 left-0 w-full select-none h-full'></p></img>",
     x: 500,
     y: 500,
     width: isMobileScreen.value ? 50 : isSmallScreen.value ? 75 : 100,
@@ -295,7 +295,7 @@ const itemsPlayground: Ref<ItemPlayground[]> = ref([
   },
   {
     name: 'moon',
-    html: "<img src='moon.png' width='200px' height:'200px' draggable='false'>",
+    html: "<img src='moon.png' width='200px' height:'200px' draggable='false'><p class='absolute top-0 left-0 w-full select-none h-full'></p></img>",
     x: 1000,
     y: 200,
     width: isMobileScreen.value ? 100 : isSmallScreen.value ? 150 : 200,
@@ -303,7 +303,7 @@ const itemsPlayground: Ref<ItemPlayground[]> = ref([
   },
   {
     name: 'saturn',
-    html: "<img src='saturn.png' width='300px' height='300px' draggable='false'>",
+    html: "<img src='saturn.png' width='300px' height='300px' draggable='false'><p class='absolute top-0 left-0 w-full select-none h-full'></p></img>",
     x: 100,
     y: 500,
     width: isMobileScreen.value ? 150 : isSmallScreen.value ? 220 : 300,
@@ -311,7 +311,7 @@ const itemsPlayground: Ref<ItemPlayground[]> = ref([
   },
   {
     name: 'star',
-    html: "<img src='star.gif' width='150px' height='150px' draggable='false'>",
+    html: "<img src='star.gif' width='150px' height='150px' draggable='false'><p class='absolute top-0 left-0 w-full select-none h-full'></p></img>",
     x: 50,
     y: 900,
     width: isMobileScreen.value ? 75 : isSmallScreen.value ? 120 : 150,
@@ -319,7 +319,7 @@ const itemsPlayground: Ref<ItemPlayground[]> = ref([
   },
   {
     name: 'astronaut',
-    html: "<img src='astronaut.gif' width='200px' draggable='false'>",
+    html: "<img src='astronaut.gif' width='200px' draggable='false'><p class='absolute top-0 left-0 w-full select-none h-full'></p></img>",
     x: 900,
     y: 700,
     width: isMobileScreen.value ? 100 : isSmallScreen.value ? 150 : 200,
