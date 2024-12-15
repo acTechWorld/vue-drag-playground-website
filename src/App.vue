@@ -168,9 +168,9 @@
   <!-- Overlay Modal -->
   <div
     v-if="isOverlayVisible"
-    class="fixed inset-0 bg-black/30 flex items-center justify-center z-50"
+    class="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-5"
   >
-    <div class="bg-white p-6 rounded-lg shadow-lg w-[600px]">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-[600px]">
       <h2 class="text-2xl font-semibold mb-4 text-center">Add your message to the Playground</h2>
       <div class="relative">
         <img src="../public/chat-box.png" />
