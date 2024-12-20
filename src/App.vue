@@ -359,7 +359,6 @@ const frameDraggingItemId: Ref<null | number> = ref(null)
 const frameDimensions = ref({ width: 0, height: 0 }) // Frame dimensions for boundary calculations
 const isOverlayVisible = ref(false)
 const message = ref('')
-
 //COMPUTED
 const propsPlayground = computed(() => ({
   isDrag: true,
@@ -551,6 +550,66 @@ onMounted(() => {
   // Cleanup listeners in case of unmounting
   window.addEventListener('resize', initFrameItems)
   document.addEventListener('contextmenu', () => false)
+  itemsPlayground.value = [
+    {
+      name: 'chat-box',
+      html: `<img src="chat-box.png" draggable='false'><p class="absolute overflow-scroll select-none top-[18%] left-[11%] break-all w-[78%] h-[60%] bg-transparent outline-none cursor-[inherit] resize-none">Take Control of your UI with VueDragPlayground!</p></img>`,
+      x: 550,
+      y: 120,
+      rotation: -15,
+      width: isMobileScreen.value ? 100 : isSmallScreen.value ? 150 : 200,
+      height: isMobileScreen.value ? 100 : isSmallScreen.value ? 150 : 200,
+    },
+    {
+      name: 'alien',
+      html: "<img src='alien.gif' width='100px' draggable='false'><p class='absolute top-0 left-0 w-full select-none h-full'></p></img>",
+      x: 1050,
+      y: 120,
+      width: isMobileScreen.value ? 50 : isSmallScreen.value ? 75 : 100,
+      height: isMobileScreen.value ? 50 : isSmallScreen.value ? 75 : 100,
+    },
+    {
+      name: 'rocket',
+      html: "<img src='rocket.gif' draggable='false'><p class='absolute top-0 left-0 w-full select-none h-full'></p></img>",
+      x: 500,
+      y: 500,
+      width: isMobileScreen.value ? 50 : isSmallScreen.value ? 75 : 100,
+      height: isMobileScreen.value ? 50 : isSmallScreen.value ? 75 : 100,
+    },
+    {
+      name: 'moon',
+      html: "<img src='moon.png' width='200px' height:'200px' draggable='false'><p class='absolute top-0 left-0 w-full select-none h-full'></p></img>",
+      x: 1000,
+      y: 200,
+      width: isMobileScreen.value ? 100 : isSmallScreen.value ? 150 : 200,
+      height: isMobileScreen.value ? 100 : isSmallScreen.value ? 150 : 200,
+    },
+    {
+      name: 'saturn',
+      html: "<img src='saturn.png' width='300px' height='300px' draggable='false'><p class='absolute top-0 left-0 w-full select-none h-full'></p></img>",
+      x: 100,
+      y: 500,
+      width: isMobileScreen.value ? 150 : isSmallScreen.value ? 220 : 300,
+      height: isMobileScreen.value ? 150 : isSmallScreen.value ? 220 : 300,
+    },
+    {
+      name: 'star',
+      html: "<img src='star.gif' width='150px' height='150px' draggable='false'><p class='absolute top-0 left-0 w-full select-none h-full'></p></img>",
+      x: 50,
+      y: 900,
+      width: isMobileScreen.value ? 75 : isSmallScreen.value ? 120 : 150,
+      height: isMobileScreen.value ? 75 : isSmallScreen.value ? 120 : 150,
+    },
+    {
+      name: 'astronaut',
+      html: "<img src='astronaut.gif' width='200px' draggable='false'><p class='absolute top-0 left-0 w-full select-none h-full'></p></img>",
+      x: 900,
+      y: 700,
+      width: isMobileScreen.value ? 100 : isSmallScreen.value ? 150 : 200,
+      height: isMobileScreen.value ? 100 : isSmallScreen.value ? 150 : 200,
+      rotation: 50,
+    },
+  ]
 })
 
 onBeforeUnmount(() => {
