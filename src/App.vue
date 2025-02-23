@@ -263,12 +263,13 @@ type ItemPlayground = {
   width?: number
   height?: number
   rotation?: number
+  static?: boolean
 }
 const displayDocSubMenu = ref(false)
 const { width } = useWindowSize()
 const isSmallScreen = computed(() => width.value < 1536)
 const isMobileScreen = computed(() => width.value < 1024)
-const playground = ref(null)
+const playground: Ref<HTMLElement | null> = ref(null)
 const itemsPlayground: Ref<ItemPlayground[]> = ref([
   {
     name: 'chat-box',
@@ -286,6 +287,7 @@ const itemsPlayground: Ref<ItemPlayground[]> = ref([
     y: 120,
     width: isMobileScreen.value ? 50 : isSmallScreen.value ? 75 : 100,
     height: isMobileScreen.value ? 50 : isSmallScreen.value ? 75 : 100,
+    static: true
   },
   {
     name: 'rocket',
@@ -554,8 +556,12 @@ onMounted(async () => {
   window.addEventListener('resize', initFrameItems)
   document.addEventListener('contextmenu', () => false)
   await new Promise((res) => setTimeout(res, 50))
-  playground.value?.initItems()
-  playground.value?.$el.classList.remove('overflow-hidden')
+  if (playground.value) {
+    //@ts-expect-error not error
+    playground.value?.initItems()
+    //@ts-expect-error not error
+    playground.value?.$el.classList.remove('overflow-hidden')
+  }
 })
 
 onBeforeUnmount(() => {

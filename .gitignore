@@ -26,5 +26,5 @@ dist.zip
 *.njsproj
 *.sln
 *.sw?
-
+dist.zip
 *.tsbuildinfo
